@@ -135,7 +135,28 @@ public class App
                     // We only calculate the cost if the grid can be built.
                     if (gridCanBeBuilt == true)
                     {
-                        System.out.println(gridChosen.getIStructure().calculateCost());
+                        // Cost so far without considering contamination or flood risk zone.
+                        double overallCost = gridChosen.getIStructure().calculateCost();
+
+                        if (gridChosen.getIStructure().convertToString().contains("contamination"))
+                        {
+                            overallCost = overallCost * 1.50;
+                        }
+                        if (gridChosen.getIStructure().convertToString().contains("flood-risk"))
+                        {
+                            String splitLine[] = gridChosen.getIStructure().convertToString().split(" ");
+                            for (int i = 0; i < splitLine.length; i++)
+                            {
+                                if (splitLine[i].contains("flood-risk"))
+                                {
+                                    String[] splitLineFloodRisk = splitLine[i].split("=");
+                                    double floodRiskValue = Double.parseDouble(splitLineFloodRisk[1]);
+                                    overallCost = overallCost * (1.00 + (floodRiskValue / 50.00));
+                                }
+                            }
+                        }
+
+                        System.out.println(overallCost);
                     }
 
                     // At the end of the 'Build structure' process we reset the grid structure.
