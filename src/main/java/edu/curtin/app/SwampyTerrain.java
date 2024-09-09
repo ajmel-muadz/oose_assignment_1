@@ -19,4 +19,9 @@ public class SwampyTerrain extends StructureDecorator
     {
         return decoratedStructure.convertToString() + "terrain=swampy ";
     }
+    @Override
+    public boolean canBuild()
+    {
+        return (decoratedStructure.canBuild() && true);
+    }
 }

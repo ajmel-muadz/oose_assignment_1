@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.logging.Logger;
+import java.io.FileNotFoundException;
+import java.util.Arrays;
+import java.util.Scanner;
 
 public class App
 {
@@ -12,12 +15,12 @@ public class App
     public static void main(String[] args) throws IOException
     {
         // Declare the grid first.
-        Grid grid;
+        Grid grid = new Grid();
 
         /* This block of code is for reading the file and populating the grid. */
         /* ----------------------------------------------------------------------------------- */
-        int rowsAvailable;
-        int columnsAvailable;
+        int rowsAvailable = -1;
+        int columnsAvailable = -1;
 
         if (args.length == 1)
         {
@@ -38,7 +41,163 @@ public class App
                 // The initialised grid will then have its data populated.
                 grid = populateGridWithData(grid, reader, rowsAvailable, columnsAvailable);
 
-                System.out.println(grid.getGridSquares().get(2).get(2).getIStructure().convertToString());
+                logger.info(grid.getGridSquares().get(4).get(1).getIStructure().convertToString());
+            }
+            catch (FileNotFoundException e)
+            {
+                System.out.println("Error while reading: " + e.getMessage());
+            }
+        }
+        else
+        {
+            System.out.println("You must enter only one filename for the argument!");
+        }
+        /* ----------------------------------------------------------------------------------- */
+
+
+        /* This section is for showing the menu. */
+        /* ----------------------------------------------------------------------------------- */
+        try (Scanner input = new Scanner(System.in))
+        {
+            while (true)
+            {
+                printMenuOptions();
+                System.out.print("Please enter your choice (by typing one of the numbers): ");
+                String optionChoice = input.nextLine();
+
+                if (optionChoice.equals("1"))
+                {
+                    // Build Structure
+                    int rowChosen;
+                    int columnChosen;
+                    GridSquare gridChosen;
+                    int numOfFloorsChosen;
+                    String foundationTypeChosen;
+                    String constructionMaterialChosen;
+
+                    /* This code block is responsible for getting user input for build structure. */
+                    /* ---------------------------------------------------------------------------------- */
+                    // We get the row and columns from the user, which pinpoints us to a grid.
+                    rowChosen = getRowInput(input, rowsAvailable);
+                    columnChosen = getColumnInput(input, columnsAvailable);
+                    gridChosen = grid.getGridSquares().get(rowChosen).get(columnChosen);
+
+                    // We then ask for the relevant things in the structure to put in the grid.
+                    numOfFloorsChosen = getNumOfFloorsInput(input);
+                    foundationTypeChosen = getFoundationTypeInput(input);
+                    constructionMaterialChosen = getConstructionMaterialInput(input);
+                    /* ---------------------------------------------------------------------------------- */
+
+                    /* We are setting a new structure based on user's inputs. */
+                    /* ---------------------------------------------------------------------------------- */
+                    IStructure existingStructure = gridChosen.getIStructure();
+                    IStructure modifiedStructure = existingStructure;
+
+                    // Set number of floors user enters into relevant grid.
+                    modifiedStructure = new NumOfFloors(modifiedStructure);
+                    ((NumOfFloors)modifiedStructure).setNumOfFloors(numOfFloorsChosen);
+
+                    // Set foundation type user enters into relevant grid.
+                    if (foundationTypeChosen.equals("slab"))
+                    {
+                        modifiedStructure = new Slab(modifiedStructure);
+                    }
+                    else if (foundationTypeChosen.equals("stilts"))
+                    {
+                        modifiedStructure = new Stilts(modifiedStructure);
+                    }
+
+                    // Set construction material user enters into relevant grid.
+                    if (constructionMaterialChosen.equals("wood"))
+                    {
+                        modifiedStructure = new Wood(modifiedStructure);
+                    }
+                    else if (constructionMaterialChosen.equals("brick"))
+                    {
+                        modifiedStructure = new Brick(modifiedStructure);
+                    }
+                    else if (constructionMaterialChosen.equals("stone"))
+                    {
+                        modifiedStructure = new Stone(modifiedStructure);
+                    }
+                    else if (constructionMaterialChosen.equals("concrete"))
+                    {
+                        modifiedStructure = new Concrete(modifiedStructure);
+                    }
+
+                    gridChosen.setIStructure(modifiedStructure);
+                    /* ---------------------------------------------------------------------------------- */
+
+                    System.out.println(gridChosen.getIStructure().canBuild());
+
+                    // At the end of the 'Build structure' process we reset the grid structure.
+                    gridChosen.setIStructure(existingStructure);
+
+                    // System.out.println(gridChosen.getIStructure().convertToString());
+                    // String gridChosenString = gridChosen.getIStructure().convertToString();
+                    // String[] gridChosenStringSplit = gridChosenString.split(" ");
+                    // System.out.println(Arrays.toString(gridChosenStringSplit));
+
+                    // if (Arrays.asList(gridChosenStringSplit).contains("terrain=swampy"))
+                    // {
+                    //     if (Arrays.asList(gridChosenStringSplit).contains("foundation-type=slab"))
+                    //     {
+                    //         boolean value = false;
+                    //     }
+                    //     if (Arrays.asList(gridChosenStringSplit).contains("construction-material=wood"))
+                    //     {
+                    //         boolean value = false;
+                    //     }
+                    // }
+
+                    // if (Arrays.asList(gridChosenStringSplit).contains("heritage=brick"))
+                    // {
+                    //     if (!Arrays.asList(gridChosenStringSplit).contains("construction-material=brick"))
+                    //     {
+                    //         boolean value = false;
+                    //     }
+                    // }
+                    // else if (Arrays.asList(gridChosenStringSplit).contains("heritage=stone"))
+                    // {
+                    //     if (!Arrays.asList(gridChosenStringSplit).contains("construction-material=stone"))
+                    //     {
+                    //         boolean value = false;
+                    //     }
+                    // }
+                    // else if (Arrays.asList(gridChosenStringSplit).contains("heritage=wood"))
+                    // {
+                    //     if (!Arrays.asList(gridChosenStringSplit).contains("construction-material=wood"))
+                    //     {
+                    //         boolean value = false;
+                    //     }
+                    // }
+
+                    // for (int i = 0; i < gridChosenStringSplit.length; i++)
+                    // {
+                    //     if (gridChosenStringSplit[i].contains("height-limit"))
+                    //     {
+                    //         //double heightLimitValue = gridChosen.getIStructure().
+                    //     }
+                    // }
+
+                }
+                else if (optionChoice.equals("2"))
+                {
+                    // Build City
+                }
+                else if (optionChoice.equals("3"))
+                {
+                    // Change configuration
+                }
+                else if (optionChoice.equals("4"))
+                {
+                    // Quit
+                    break;
+                }
+                else
+                {
+                    System.out.println("You must choose one of the numbers for a valid input!\n");
+                }
             }
         }
         /* ----------------------------------------------------------------------------------- */
@@ -96,21 +255,15 @@ public class App
                                     // Typecast into FloodRisk to allow setting value.
                                     ((FloodRisk)structure)
                                     .setFloodRisk(Double.parseDouble(splitZoningLineRead[1]));
-
-                                    // Typecast back into IStructure.
-                                    //structure = ((IStructure)structure);
                                 }
                                 else if (splitZoningLineRead[0].equals("height-limit"))
                                 {
                                     // First assign structure height limit decorator.
                                     structure = new HeightLimit(structure);
 
-                                    // Typecast into HeightLimmit to allow setting value.
+                                    // Typecast into HeightLimit to allow setting value.
                                     ((HeightLimit)structure)
                                     .setHeightLimit(Integer.parseInt(splitZoningLineRead[1]));
-
-                                    // Typecast back into IStructure.
-                                    //structure = ((IStructure)structure);
                                 }
                                 else if (splitZoningLineRead[0].equals("heritage"))
                                 {
@@ -140,6 +293,192 @@ public class App
             }
         }
         return pGrid;
+    }
+    /* ----------------------------------------------------------------------------------- */
+
+
+    /* Method used to print menu options. */
+    /* ----------------------------------------------------------------------------------- */
+    private static void printMenuOptions()
+    {
+        // Print menu options.
+        System.out.println("\n------------------------");
+        System.out.println("          Menu          ");
+        System.out.println("------------------------");
+        System.out.println("1. Build Structure");
+        System.out.println("2. Build City");
+        System.out.println("3. Configure");
+        System.out.println("4. Quit");
+        System.out.println("------------------------\n");
+    }
+    /* ----------------------------------------------------------------------------------- */
+
+
+    /* Method used to get row input from user to build a structure. */
+    /* ----------------------------------------------------------------------------------- */
+    private static int getRowInput(Scanner input, int pRowsAvailable)
+    {
+        /* Ask for the row first for the specific grid square. */
+        /* -------------------------------------------------------------------------------- */
+        while (true)
+        {
+            System.out.print("Enter the row of the grid square: ");
+            int rowInput = input.nextInt();
+            input.nextLine();
+
+            if (rowInput < 0)
+            {
+                System.out.println("The row cannot be a negative number!\n");
+            }
+            else if (rowInput >= pRowsAvailable)
+            {
+                System.out.println("That exceeds the size of the row! (zero-based indexing).\n");
+            }
+            else
+            {
+                return rowInput;
+            }
+        }
+        /* -------------------------------------------------------------------------------- */
+    }
+    /* ----------------------------------------------------------------------------------- */
+
+
+    /* Method used to get column input from user to build structure. */
+    /* ----------------------------------------------------------------------------------- */
+    private static int getColumnInput(Scanner input, int pColumnsAvailable)
+    {
+        /* Ask for the column first for the specific grid square. */
+        /* -------------------------------------------------------------------------------- */
+        while (true)
+        {
+            System.out.print("Enter the column of the grid square: ");
+            int columnInput = input.nextInt();
+            input.nextLine();
+
+            if (columnInput < 0)
+            {
+                System.out.println("The column cannot be a negative number!");
+            }
+            else if (columnInput >= pColumnsAvailable)
+            {
+                System.out.println("That exceeds the size of the column! (zero-based indexing).");
+            }
+            else
+            {
+                return columnInput;
+            }
+        }
+        /* -------------------------------------------------------------------------------- */
+    }
+    /* ----------------------------------------------------------------------------------- */
+
+
+    /* Method used to get the number of floors from user to build structure. */
+    /* ----------------------------------------------------------------------------------- */
+    private static int getNumOfFloorsInput(Scanner input)
+    {
+        /* Ask for the number of floors for the structure. */
+        /* -------------------------------------------------------------------------------- */
+        while (true)
+        {
+            System.out.print("Enter the number of floors: ");
+            int numOfFloorsInput = input.nextInt();
+            input.nextLine();
+
+            if (numOfFloorsInput <= 0)
+            {
+                System.out.println("The number of floors has to be a positive number!");
+            }
+            else
+            {
+                return numOfFloorsInput;
+            }
+        }
+        /* -------------------------------------------------------------------------------- */
+    }
+    /* ----------------------------------------------------------------------------------- */
+
+
+    /* Method used to get foundation type from user to build structure. */
+    /* ----------------------------------------------------------------------------------- */
+    private static String getFoundationTypeInput(Scanner input)
+    {
+        /* Ask for the foundation type: either 'slab' or 'stilts'. */
+        /* -------------------------------------------------------------------------------- */
+        while (true)
+        {
+            System.out.println("Choose your foundation type:");
+            System.out.println("1. Slab");
+            System.out.println("2. Stilts");
+            System.out.println("");
+            
+            System.out.print("Enter foundation type number: ");
+            String foundationTypeNumber = input.nextLine();
+
+            if (foundationTypeNumber.equals("1"))
+            {
+                System.out.println("You chose slab");
+                return "slab";
+            }
+            else if (foundationTypeNumber.equals("2"))
+            {
+                System.out.println("You chose stilts");
+                return "stilts";
+            }
+            else
+            {
+                System.out.println("You must type either '1' or '2'!");
+            }
+        }
+        /* -------------------------------------------------------------------------------- */
+    }
+    /* ----------------------------------------------------------------------------------- */
+
+
+    /* Method used to get construction material type from user to build structure. */
+    /* ----------------------------------------------------------------------------------- */
+    private static String getConstructionMaterialInput(Scanner input)
+    {
+        /* Ask for the construction material: either 'wood', 'stone', 'brick', 'concrete'. */
+        /* -------------------------------------------------------------------------------- */
+        while (true)
+        {
+            System.out.println("Choose your construction material:");
+            System.out.println("1. Wood");
+            System.out.println("2. Stone");
+            System.out.println("3. Brick");
+            System.out.println("4. Concrete");
+
+            System.out.print("Enter construction material number: ");
+            String constructionMaterialNumber = input.nextLine();
+
+            if (constructionMaterialNumber.equals("1"))
+            {
+                System.out.println("You chose wood");
+                return "wood";
+            }
+            else if (constructionMaterialNumber.equals("2"))
+            {
+                System.out.println("You chose stone");
+                return "stone";
+            }
+            else if (constructionMaterialNumber.equals("3"))
+            {
+                System.out.println("You chose brick");
+                return "brick";
+            }
+            else if (constructionMaterialNumber.equals("4"))
+            {
+                System.out.println("You chose concrete");
+                return "concrete";
+            }
+            else
+            {
+                System.out.println("You must type either '1', '2', '3' or '4'!");
+            }
+        }
+        /* -------------------------------------------------------------------------------- */
     }
     /* ----------------------------------------------------------------------------------- */
 }

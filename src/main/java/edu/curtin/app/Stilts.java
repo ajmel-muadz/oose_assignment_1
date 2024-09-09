@@ -1,10 +1,10 @@
 package edu.curtin.app;
 
-public class StoneHeritage extends StructureDecorator
+public class Stilts extends StructureDecorator
 {
-    public String label = "heritage-stone";
+    public String label = "stilts";
 
-    public StoneHeritage(IStructure decoratedStructure)
+    public Stilts(IStructure decoratedStructure)
     {
         super(decoratedStructure);
     }
@@ -17,7 +17,7 @@ public class StoneHeritage extends StructureDecorator
     @Override
     public String convertToString()
     {
-        return decoratedStructure.convertToString() + "heritage=stone ";
+        return decoratedStructure.convertToString() + "foundation-type=stilts ";
     }
     @Override
     public boolean canBuild()

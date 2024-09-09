@@ -1,3 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 https://pmd.github.io/schema/report_2_0_0.xsd" version="7.3.0" timestamp="2024-09-09T00:53:45.468">
+<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 https://pmd.github.io/schema/report_2_0_0.xsd" version="7.3.0" timestamp="2024-09-09T14:11:47.562">
+<file name="/home/ajmel/oose/base_java_project/src/main/java/edu/curtin/app/App.java">
+<violation beginline="43" endline="43" begincolumn="17" endcolumn="100" rule="GuardLogStatement" ruleset="Best Practices" package="edu.curtin.app" class="App" method="main" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.3.0/pmd_rules_java_bestpractices.html#guardlogstatement" priority="2">
+Use lambda expressions (() -&gt; ...) when building a log message from variable values.
+</violation>
+<violation beginline="133" endline="149" begincolumn="22" endcolumn="18" rule="EmptyControlStatement" ruleset="Code Style" package="edu.curtin.app" class="App" method="main" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.3.0/pmd_rules_java_codestyle.html#emptycontrolstatement" priority="3">
+Empty if statement
+</violation>
+<violation beginline="137" endline="149" begincolumn="22" endcolumn="18" rule="EmptyControlStatement" ruleset="Code Style" package="edu.curtin.app" class="App" method="main" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.3.0/pmd_rules_java_codestyle.html#emptycontrolstatement" priority="3">
+Empty if statement
+</violation>
+</file>
+<file name="/home/ajmel/oose/base_java_project/src/main/java/edu/curtin/app/Brick.java">
+<violation beginline="25" endline="25" begincolumn="33" endcolumn="37" rule="UnusedAssignment" ruleset="Best Practices" package="edu.curtin.app" class="Brick" method="canBuild" variable="valueToReturn" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.3.0/pmd_rules_java_bestpractices.html#unusedassignment" priority="3">
+The initializer for variable 'valueToReturn' is never used (overwritten on line 26)
+</violation>
+</file>
+<file name="/home/ajmel/oose/base_java_project/src/main/java/edu/curtin/app/BrickHeritage.java">
+<violation beginline="25" endline="25" begincolumn="33" endcolumn="37" rule="UnusedAssignment" ruleset="Best Practices" package="edu.curtin.app" class="BrickHeritage" method="canBuild" variable="valueToReturn" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.3.0/pmd_rules_java_bestpractices.html#unusedassignment" priority="3">
+The initializer for variable 'valueToReturn' is never used (overwritten on lines 28 and 32)
+</violation>
+</file>
+<file name="/home/ajmel/oose/base_java_project/src/main/java/edu/curtin/app/Concrete.java">
+<violation beginline="25" endline="25" begincolumn="33" endcolumn="37" rule="UnusedAssignment" ruleset="Best Practices" package="edu.curtin.app" class="Concrete" method="canBuild" variable="valueToReturn" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.3.0/pmd_rules_java_bestpractices.html#unusedassignment" priority="3">
+The initializer for variable 'valueToReturn' is never used (overwritten on line 26)
+</violation>
+</file>
+<file name="/home/ajmel/oose/base_java_project/src/main/java/edu/curtin/app/Contamination.java">
+<violation beginline="25" endline="25" begincolumn="33" endcolumn="37" rule="UnusedAssignment" ruleset="Best Practices" package="edu.curtin.app" class="Contamination" method="canBuild" variable="valueToReturn" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.3.0/pmd_rules_java_bestpractices.html#unusedassignment" priority="3">
+The initializer for variable 'valueToReturn' is never used (overwritten on line 26)
+</violation>
+</file>
+<file name="/home/ajmel/oose/base_java_project/src/main/java/edu/curtin/app/FlatTerrain.java">
+<violation beginline="25" endline="25" begincolumn="33" endcolumn="37" rule="UnusedAssignment" ruleset="Best Practices" package="edu.curtin.app" class="FlatTerrain" method="canBuild" variable="valueToReturn" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.3.0/pmd_rules_java_bestpractices.html#unusedassignment" priority="3">
+The initializer for variable 'valueToReturn' is never used (overwritten on line 26)
+</violation>
+</file>
+<file name="/home/ajmel/oose/base_java_project/src/main/java/edu/curtin/app/FloodRisk.java">
+<violation beginline="25" endline="25" begincolumn="33" endcolumn="37" rule="UnusedAssignment" ruleset="Best Practices" package="edu.curtin.app" class="FloodRisk" method="canBuild" variable="valueToReturn" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.3.0/pmd_rules_java_bestpractices.html#unusedassignment" priority="3">
+The initializer for variable 'valueToReturn' is never used (overwritten on lines 28 and 32)
+</violation>
+</file>
+<file name="/home/ajmel/oose/base_java_project/src/main/java/edu/curtin/app/HeightLimit.java">
+<violation beginline="25" endline="25" begincolumn="33" endcolumn="37" rule="UnusedAssignment" ruleset="Best Practices" package="edu.curtin.app" class="HeightLimit" method="canBuild" variable="valueToReturn" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.3.0/pmd_rules_java_bestpractices.html#unusedassignment" priority="3">
+The initializer for variable 'valueToReturn' is never used (overwritten on lines 28 and 32)
+</violation>
+</file>
+<file name="/home/ajmel/oose/base_java_project/src/main/java/edu/curtin/app/NumOfFloors.java">
+<violation beginline="25" endline="25" begincolumn="33" endcolumn="37" rule="UnusedAssignment" ruleset="Best Practices" package="edu.curtin.app" class="NumOfFloors" method="canBuild" variable="valueToReturn" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.3.0/pmd_rules_java_bestpractices.html#unusedassignment" priority="3">
+The initializer for variable 'valueToReturn' is never used (overwritten on line 26)
+</violation>
+</file>
+<file name="/home/ajmel/oose/base_java_project/src/main/java/edu/curtin/app/RockyTerrain.java">
+<violation beginline="25" endline="25" begincolumn="33" endcolumn="37" rule="UnusedAssignment" ruleset="Best Practices" package="edu.curtin.app" class="RockyTerrain" method="canBuild" variable="valueToReturn" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.3.0/pmd_rules_java_bestpractices.html#unusedassignment" priority="3">
+The initializer for variable 'valueToReturn' is never used (overwritten on line 26)
+</violation>
+</file>
+<file name="/home/ajmel/oose/base_java_project/src/main/java/edu/curtin/app/Stilts.java">
+<violation beginline="25" endline="25" begincolumn="33" endcolumn="37" rule="UnusedAssignment" ruleset="Best Practices" package="edu.curtin.app" class="Stilts" method="canBuild" variable="valueToReturn" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.3.0/pmd_rules_java_bestpractices.html#unusedassignment" priority="3">
+The initializer for variable 'valueToReturn' is never used (overwritten on line 26)
+</violation>
+</file>
+<file name="/home/ajmel/oose/base_java_project/src/main/java/edu/curtin/app/Stone.java">
+<violation beginline="25" endline="25" begincolumn="33" endcolumn="37" rule="UnusedAssignment" ruleset="Best Practices" package="edu.curtin.app" class="Stone" method="canBuild" variable="valueToReturn" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.3.0/pmd_rules_java_bestpractices.html#unusedassignment" priority="3">
+The initializer for variable 'valueToReturn' is never used (overwritten on line 26)
+</violation>
+</file>
+<file name="/home/ajmel/oose/base_java_project/src/main/java/edu/curtin/app/StoneHeritage.java">
+<violation beginline="25" endline="25" begincolumn="33" endcolumn="37" rule="UnusedAssignment" ruleset="Best Practices" package="edu.curtin.app" class="StoneHeritage" method="canBuild" variable="valueToReturn" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.3.0/pmd_rules_java_bestpractices.html#unusedassignment" priority="3">
+The initializer for variable 'valueToReturn' is never used (overwritten on lines 28 and 32)
+</violation>
+</file>
+<file name="/home/ajmel/oose/base_java_project/src/main/java/edu/curtin/app/SwampyTerrain.java">
+<violation beginline="25" endline="25" begincolumn="33" endcolumn="37" rule="UnusedAssignment" ruleset="Best Practices" package="edu.curtin.app" class="SwampyTerrain" method="canBuild" variable="valueToReturn" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.3.0/pmd_rules_java_bestpractices.html#unusedassignment" priority="3">
+The initializer for variable 'valueToReturn' is never used (overwritten on line 26)
+</violation>
+</file>
+<file name="/home/ajmel/oose/base_java_project/src/main/java/edu/curtin/app/Wood.java">
+<violation beginline="25" endline="25" begincolumn="33" endcolumn="37" rule="UnusedAssignment" ruleset="Best Practices" package="edu.curtin.app" class="Wood" method="canBuild" variable="valueToReturn" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.3.0/pmd_rules_java_bestpractices.html#unusedassignment" priority="3">
+The initializer for variable 'valueToReturn' is never used (overwritten on lines 28 and 32)
+</violation>
+</file>
+<file name="/home/ajmel/oose/base_java_project/src/main/java/edu/curtin/app/WoodHeritage.java">
+<violation beginline="25" endline="25" begincolumn="33" endcolumn="37" rule="UnusedAssignment" ruleset="Best Practices" package="edu.curtin.app" class="WoodHeritage" method="canBuild" variable="valueToReturn" externalInfoUrl="https://docs.pmd-code.org/pmd-doc-7.3.0/pmd_rules_java_bestpractices.html#unusedassignment" priority="3">
+The initializer for variable 'valueToReturn' is never used (overwritten on lines 28 and 32)
+</violation>
+</file>
 </pmd>

@@ -18,4 +18,9 @@ public abstract class StructureDecorator implements IStructure
     {
         return decoratedStructure.convertToString();
     }
+    @Override
+    public boolean canBuild()
+    {
+        return decoratedStructure.canBuild();
+    }
 }

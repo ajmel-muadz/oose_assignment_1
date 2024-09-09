@@ -1,10 +1,2 @@
-Sep 09, 2024 1:07:42 AM edu.curtin.app.App populateGridWithData
-INFO: class edu.curtin.app.SwampyTerrain
-Sep 09, 2024 1:07:42 AM edu.curtin.app.App populateGridWithData
-INFO: class edu.curtin.app.SwampyTerrain
-Sep 09, 2024 1:07:42 AM edu.curtin.app.App populateGridWithData
-INFO: class edu.curtin.app.SwampyTerrain
-Sep 09, 2024 1:07:42 AM edu.curtin.app.App populateGridWithData
-INFO: class edu.curtin.app.FlatTerrain
-Sep 09, 2024 1:07:42 AM edu.curtin.app.App populateGridWithData
-INFO: class edu.curtin.app.FlatTerrain
+Sep 09, 2024 4:28:37 PM edu.curtin.app.App main
+INFO: terrain=rocky flood-risk=67.100903 height-limit=23 heritage=brick 

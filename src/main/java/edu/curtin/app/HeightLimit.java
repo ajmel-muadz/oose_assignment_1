@@ -1,5 +1,7 @@
 package edu.curtin.app;
 
+import java.util.Arrays;
+
 public class HeightLimit extends StructureDecorator
 {
     private int heightLimit;
@@ -18,6 +20,11 @@ public class HeightLimit extends StructureDecorator
     public String convertToString()
     {
         return decoratedStructure.convertToString() + "height-limit=" + heightLimit + " ";
+    }
+    @Override
+    public boolean canBuild()
+    {
+        return (decoratedStructure.canBuild() && true);
     }
 
     // Accessor

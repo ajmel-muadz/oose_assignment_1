@@ -2,7 +2,7 @@ package edu.curtin.app;
 
 public class WoodHeritage extends StructureDecorator
 {
-    public String label = "wood";
+    public String label = "heritage-wood";
 
     public WoodHeritage(IStructure decoratedStructure)
     {
@@ -18,5 +18,10 @@ public class WoodHeritage extends StructureDecorator
     public String convertToString()
     {
         return decoratedStructure.convertToString() + "heritage=wood ";
+    }
+    @Override
+    public boolean canBuild()
+    {
+        return (decoratedStructure.canBuild() && true);
     }
 }

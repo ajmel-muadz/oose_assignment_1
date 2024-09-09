@@ -1,10 +1,10 @@
 package edu.curtin.app;
 
-public class FloodRisk extends StructureDecorator
+public class NumOfFloors extends StructureDecorator
 {
-    private double floodRisk;
+    private int numOfFloors;
 
-    public FloodRisk(IStructure decoratedStructure)
+    public NumOfFloors(IStructure decoratedStructure)
     {
         super(decoratedStructure);
     }
@@ -17,7 +17,7 @@ public class FloodRisk extends StructureDecorator
     @Override
     public String convertToString()
     {
-        return decoratedStructure.convertToString() + "flood-risk=" + floodRisk + " ";
+        return decoratedStructure.convertToString() + "num-of-floors=" + numOfFloors + " ";
     }
     @Override
     public boolean canBuild()
@@ -26,14 +26,14 @@ public class FloodRisk extends StructureDecorator
     }
 
     // Accessor
-    public double getFloodRisk()
+    public int getNumOfFloors()
     {
-        return floodRisk;
+        return numOfFloors;
     }
 
     // Mutator
-    public void setFloodRisk(double pFloodRisk)
+    public void setNumOfFloors(int pNumOfFloors)
     {
-        floodRisk = pFloodRisk;
+        numOfFloors = pNumOfFloors;
     }
 }

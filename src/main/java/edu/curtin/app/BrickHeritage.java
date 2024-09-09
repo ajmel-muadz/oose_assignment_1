@@ -2,7 +2,7 @@ package edu.curtin.app;
 
 public class BrickHeritage extends StructureDecorator
 {
-    public String label = "brick";
+    public String label = "heritage-brick";
 
     public BrickHeritage(IStructure decoratedStructure)
     {
@@ -18,5 +18,10 @@ public class BrickHeritage extends StructureDecorator
     public String convertToString()
     {
         return decoratedStructure.convertToString() + "heritage=brick ";
+    }
+    @Override
+    public boolean canBuild()
+    {
+        return (decoratedStructure.canBuild() && true);
     }
 }

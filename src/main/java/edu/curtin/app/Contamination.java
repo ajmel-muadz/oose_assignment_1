@@ -19,4 +19,9 @@ public class Contamination extends StructureDecorator
     {
         return decoratedStructure.convertToString() + "contamination ";
     }
+    @Override
+    public boolean canBuild()
+    {
+        return (decoratedStructure.canBuild() && true);
+    }
 }

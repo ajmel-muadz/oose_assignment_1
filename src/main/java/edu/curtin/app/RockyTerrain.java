@@ -19,4 +19,9 @@ public class RockyTerrain extends StructureDecorator
     {
         return decoratedStructure.convertToString() + "terrain=rocky ";
     }
+    @Override
+    public boolean canBuild()
+    {
+        return (decoratedStructure.canBuild() && true);
+    }
 }

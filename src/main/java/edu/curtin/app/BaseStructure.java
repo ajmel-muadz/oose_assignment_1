@@ -13,4 +13,9 @@ public class BaseStructure implements IStructure
     {
         return "";
     }
+    @Override
+    public boolean canBuild()
+    {
+        return true;
+    }
 }

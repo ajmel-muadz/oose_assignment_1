@@ -19,4 +19,9 @@ public class FlatTerrain extends StructureDecorator
     {
         return decoratedStructure.convertToString() + "terrain=flat ";
     }
+    @Override
+    public boolean canBuild()
+    {
+        return (decoratedStructure.canBuild() && true);
+    }
 }
