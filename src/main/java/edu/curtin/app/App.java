@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Random;
+import java.lang.Math;
 
 public class App
 {
@@ -175,26 +177,29 @@ public class App
                 }
                 else if (optionChoice.equals("2"))
                 {
+                    /* Initialise the total structures, total cost and the grid to display. */
+                    /* ------------------------------------------------------------------------ */
+                    int totalStructuresBuilt = 0;
+                    double totalCostOfGrid = 0.0;
+
+                    List<List<String>> builtStructuresDisplay = new ArrayList<>();
+                    for (int r = 0; r < rowsAvailable; r++)
+                    {
+                        List<String> newRow = new ArrayList<>();
+                        for (int c = 0; c < columnsAvailable; c++)
+                        {
+                            newRow.add(" ");
+                        }
+                        builtStructuresDisplay.add(newRow);
+                    }
+                    /* ------------------------------------------------------------------------ */
+
                     if (buildCityApproach == 1)
                     {
                         // Build city.
                         int numOfFloorsChosen;
                         String foundationTypeChosen;
                         String constructionMaterialChosen;
-
-                        int totalStructuresBuilt = 0;
-                        double totalCostOfGrid = 0.0;
-
-                        List<List<String>> displayBuiltStructures = new ArrayList<>();
-                        for (int r = 0; r < rowsAvailable; r++)
-                        {
-                            List<String> newRow = new ArrayList<>();
-                            for (int c = 0; c < columnsAvailable; c++)
-                            {
-                                newRow.add(" ");
-                            }
-                            displayBuiltStructures.add(newRow);
-                        }
 
                         // We then ask for the relevant things in the structure to put in the grid.
                         numOfFloorsChosen = getNumOfFloorsInput(input);
@@ -279,17 +284,197 @@ public class App
                                     // This is the total cost of the grid.
                                     totalCostOfGrid = totalCostOfGrid + overallCost;
                                     // This is for marking the location of the structure able to be built.
-                                    displayBuiltStructures.get(r).set(c, "X");
+                                    builtStructuresDisplay.get(r).set(c, "X");
+
+                                    // Change grid square back to original once we captured the relevant data.
+                                    gridChosen.setIStructure(existingStructure);
                                 }
                                 /* ---------------------------------------------------------------------------------- */
                             }
                         }
-
-                        System.out.println(totalStructuresBuilt);
-                        System.out.println(totalCostOfGrid);
-                        System.out.println(displayBuiltStructures.toString());
-
                     }
+                    else if (buildCityApproach == 2)
+                    {
+                        for (int r = 0; r < rowsAvailable; r++)
+                        {
+                            for (int c = 0; c < columnsAvailable; c++)
+                            {
+                                GridSquare gridChosen = grid.getGridSquares().get(r).get(c);
+
+                                IStructure existingStructure = gridChosen.getIStructure();
+                                IStructure modifiedStructure = existingStructure;
+
+                                // Set a random number of for the grid chosen.
+                                Random random = new Random();
+                                int randomNumOfFloors = random.nextInt(50)+1; // Generate random 1 to 50.
+                                modifiedStructure = new NumOfFloors(modifiedStructure);
+                                ((NumOfFloors)modifiedStructure).setNumOfFloors(randomNumOfFloors);
+
+                                // Set random foundation type.
+                                int randomFoundationInt = random.nextInt(2)+1;
+                                if (randomFoundationInt == 1)
+                                {
+                                    modifiedStructure = new Slab(modifiedStructure);
+                                }
+                                else if (randomFoundationInt == 2)
+                                {
+                                    modifiedStructure = new Stilts(modifiedStructure);
+                                }
+
+                                // Set random construction material.
+                                int randomConstructionMaterialInt = random.nextInt(4)+1;
+                                if (randomConstructionMaterialInt == 1)
+                                {
+                                    modifiedStructure = new Wood(modifiedStructure);
+                                }
+                                else if (randomConstructionMaterialInt == 2)
+                                {
+                                    modifiedStructure = new Brick(modifiedStructure);
+                                }
+                                else if (randomConstructionMaterialInt == 3)
+                                {
+                                    modifiedStructure = new Stone(modifiedStructure);
+                                }
+                                else if (randomConstructionMaterialInt == 4)
+                                {
+                                    modifiedStructure = new Concrete(modifiedStructure);
+                                }
+
+                                gridChosen.setIStructure(modifiedStructure);
+
+                                
+                                boolean gridCanBeBuilt = gridChosen.getIStructure().canBuild();
+
+                                // We only calculate the cost if the grid can be built.
+                                if (gridCanBeBuilt == true)
+                                {
+                                    // Cost so far without considering contamination or flood risk zone.
+                                    double overallCost = gridChosen.getIStructure().calculateCost();
+            
+                                    if (gridChosen.getIStructure().convertToString().contains("contamination"))
+                                    {
+                                        overallCost = overallCost * 1.50;
+                                    }
+                                    if (gridChosen.getIStructure().convertToString().contains("flood-risk"))
+                                    {
+                                        String splitLine[] = gridChosen.getIStructure().convertToString().split(" ");
+                                        for (int i = 0; i < splitLine.length; i++)
+                                        {
+                                            if (splitLine[i].contains("flood-risk"))
+                                            {
+                                                String[] splitLineFloodRisk = splitLine[i].split("=");
+                                                double floodRiskValue = Double.parseDouble(splitLineFloodRisk[1]);
+                                                overallCost = overallCost * (1.00 + (floodRiskValue / 50.00));
+                                            }
+                                        }
+                                    }
+
+                                    // This is the total number of structures able to be built.
+                                    totalStructuresBuilt = totalStructuresBuilt + 1;
+                                    // This is the total cost of the grid.
+                                    totalCostOfGrid = totalCostOfGrid + overallCost;
+                                    // This is for marking the location of the structure able to be built.
+                                    builtStructuresDisplay.get(r).set(c, "X");
+
+                                    // Change grid square back to original once we captured the relevant data.
+                                    gridChosen.setIStructure(existingStructure);
+                                }
+                            }
+                        }
+                    }
+                    else if (buildCityApproach == 3)
+                    {
+                        int height = rowsAvailable - 1;  // Height
+                        int width = columnsAvailable - 1;  // Width
+
+                        int centerGridRow = height / 2;
+                        int centerGridColumn = width / 2;
+
+                        for (int r = 0; r < rowsAvailable; r++)
+                        {
+                            for (int c = 0; c < columnsAvailable; c++)
+                            {
+                                GridSquare gridChosen = grid.getGridSquares().get(r).get(c);
+
+                                double distanceFromCentre = Math.sqrt(Math.pow(r - ((height - 1) / 2), 2)
+                                + Math.pow(c - ((width - 1) / 2), 2));
+
+                                int numOfFloors = (int)(Math.round(1 + (20 / distanceFromCentre + 1)));
+
+                                IStructure existingStructure = gridChosen.getIStructure();
+                                IStructure modifiedStructure = existingStructure;
+
+                                // Set numOfFloors
+                                modifiedStructure = new NumOfFloors(modifiedStructure);
+                                ((NumOfFloors)modifiedStructure).setNumOfFloors(numOfFloors);
+
+                                // Always use slab foundation when central.
+                                modifiedStructure = new Slab(modifiedStructure);
+
+                                // Set the construction materials.
+                                if (distanceFromCentre <= 2)
+                                {
+                                    modifiedStructure = new Concrete(modifiedStructure);
+                                }
+                                else if (distanceFromCentre > 2 && distanceFromCentre <= 4)
+                                {
+                                    modifiedStructure = new Brick(modifiedStructure);
+                                }
+                                else if (distanceFromCentre > 4 && distanceFromCentre <= 6)
+                                {
+                                    modifiedStructure = new Stone(modifiedStructure);
+                                }
+                                else
+                                {
+                                    modifiedStructure = new Wood(modifiedStructure);
+                                }
+
+                                gridChosen.setIStructure(modifiedStructure);
+
+
+                                boolean gridCanBeBuilt = gridChosen.getIStructure().canBuild();
+
+                                // We only calculate the cost if the grid can be built.
+                                if (gridCanBeBuilt == true)
+                                {
+                                    // Cost so far without considering contamination or flood risk zone.
+                                    double overallCost = gridChosen.getIStructure().calculateCost();
+            
+                                    if (gridChosen.getIStructure().convertToString().contains("contamination"))
+                                    {
+                                        overallCost = overallCost * 1.50;
+                                    }
+                                    if (gridChosen.getIStructure().convertToString().contains("flood-risk"))
+                                    {
+                                        String splitLine[] = gridChosen.getIStructure().convertToString().split(" ");
+                                        for (int i = 0; i < splitLine.length; i++)
+                                        {
+                                            if (splitLine[i].contains("flood-risk"))
+                                            {
+                                                String[] splitLineFloodRisk = splitLine[i].split("=");
+                                                double floodRiskValue = Double.parseDouble(splitLineFloodRisk[1]);
+                                                overallCost = overallCost * (1.00 + (floodRiskValue / 50.00));
+                                            }
+                                        }
+                                    }
+
+                                    // This is the total number of structures able to be built.
+                                    totalStructuresBuilt = totalStructuresBuilt + 1;
+                                    // This is the total cost of the grid.
+                                    totalCostOfGrid = totalCostOfGrid + overallCost;
+                                    // This is for marking the location of the structure able to be built.
+                                    builtStructuresDisplay.get(r).set(c, "X");
+
+                                    // Change grid square back to original once we captured the relevant data.
+                                    gridChosen.setIStructure(existingStructure);
+                                }
+                            }
+                        }
+                    }
+
+                    System.out.println(totalStructuresBuilt);
+                    System.out.println(totalCostOfGrid);
+                    System.out.println(builtStructuresDisplay.toString());
                 }
                 else if (optionChoice.equals("3"))
                 {
