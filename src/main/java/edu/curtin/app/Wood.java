@@ -1,7 +1,5 @@
 package edu.curtin.app;
 
-import java.util.Arrays;
-
 public class Wood extends StructureDecorator
 {
     public String label = "wood";
@@ -17,11 +15,11 @@ public class Wood extends StructureDecorator
         double cost = 0.0;
 
         String[] splitLine = decoratedStructure.convertToString().split(" ");
-        for (int i = 0; i < splitLine.length; i++)
+        for (String element : splitLine)
         {
-            if (splitLine[i].contains("num-of-floors"))
+            if (element.contains("num-of-floors"))
             {
-                String[] splitLineNumOfFloors = splitLine[i].split("=");
+                String[] splitLineNumOfFloors = element.split("=");
                 int numOfFloorsValue = Integer.parseInt(splitLineNumOfFloors[1]);
                 cost = (10000.00 * numOfFloorsValue);
 
@@ -42,7 +40,7 @@ public class Wood extends StructureDecorator
     @Override
     public boolean canBuild()
     {
-        boolean valueToReturn = true;
+        boolean valueToReturn;
         if (decoratedStructure.convertToString().contains("terrain=swampy"))
         {
             StructureCannotBuildResult.setResult("Cannot build structure. Reason: Wood structure cannot be in a swamp.");

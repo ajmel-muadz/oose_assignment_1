@@ -9,6 +9,10 @@ public class StructureCannotBuildResult
     {
         result = result + pResult + "\n";
     }
+    public static void clearResult()
+    {
+        result = "";
+    }
 
     // Accessor
     public static String getResult()

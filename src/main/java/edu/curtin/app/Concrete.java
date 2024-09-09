@@ -15,11 +15,11 @@ public class Concrete extends StructureDecorator
         double cost = 0.0;
 
         String[] splitLine = decoratedStructure.convertToString().split(" ");
-        for (int i = 0; i < splitLine.length; i++)
+        for (String element : splitLine)
         {
-            if (splitLine[i].contains("num-of-floors"))
+            if (element.contains("num-of-floors"))
             {
-                String[] splitLineNumOfFloors = splitLine[i].split("=");
+                String[] splitLineNumOfFloors = element.split("=");
                 int numOfFloorsValue = Integer.parseInt(splitLineNumOfFloors[1]);
                 cost = (20000.00 * numOfFloorsValue);
 

@@ -1,7 +1,5 @@
 package edu.curtin.app;
 
-import java.util.Arrays;
-
 public class NumOfFloors extends StructureDecorator
 {
     private int numOfFloors;
@@ -28,11 +26,11 @@ public class NumOfFloors extends StructureDecorator
         if (decoratedStructure.convertToString().contains("height-limit"))
         {
             String[] splitLine = decoratedStructure.convertToString().split(" ");
-            for (int i = 0; i < splitLine.length; i++)
+            for (String element : splitLine)
             {
-                if (splitLine[i].contains("height-limit"))
+                if (element.contains("height-limit"))
                 {
-                    String[] splitLineHeightLimit = splitLine[i].split("=");
+                    String[] splitLineHeightLimit = element.split("=");
                     int heightLimitValue = Integer.parseInt(splitLineHeightLimit[1]);
 
                     if (numOfFloors > heightLimitValue)

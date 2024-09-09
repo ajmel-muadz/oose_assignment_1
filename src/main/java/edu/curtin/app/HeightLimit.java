@@ -1,7 +1,5 @@
 package edu.curtin.app;
 
-import java.util.Arrays;
-
 public class HeightLimit extends StructureDecorator
 {
     private int heightLimit;
