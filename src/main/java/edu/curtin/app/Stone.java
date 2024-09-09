@@ -53,7 +53,8 @@ public class Stone extends StructureDecorator
             }
             else
             {
-                System.out.println("Cannot build structure. Reason: Structure does not match heritage.");
+                StructureCannotBuildResult.setResult("Cannot build structure. Reason: Structure does not match heritage.");
+                //System.out.println("Cannot build structure. Reason: Structure does not match heritage.");
                 valueToReturn = false;
             }
         }

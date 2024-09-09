@@ -45,7 +45,8 @@ public class Wood extends StructureDecorator
         boolean valueToReturn = true;
         if (decoratedStructure.convertToString().contains("terrain=swampy"))
         {
-            System.out.println("Cannot build structure. Reason: Wood structure cannot be in a swamp.");
+            StructureCannotBuildResult.setResult("Cannot build structure. Reason: Wood structure cannot be in a swamp.");
+            //System.out.println("Cannot build structure. Reason: Wood structure cannot be in a swamp.");
             valueToReturn = false;
         }
         else
@@ -61,7 +62,8 @@ public class Wood extends StructureDecorator
             }
             else
             {
-                System.out.println("Cannot build structure. Reason: Structure does not match heritage.");
+                StructureCannotBuildResult.setResult("Cannot build structure. Reason: Structure does not match heritage.");
+                //System.out.println("Cannot build structure. Reason: Structure does not match heritage.");
                 valueToReturn = false;
             }
         }

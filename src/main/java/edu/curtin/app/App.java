@@ -5,7 +5,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.logging.Logger;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 public class App
@@ -14,6 +16,8 @@ public class App
 
     public static void main(String[] args) throws IOException
     {
+        int buildCityApproach = 2;
+
         // Declare the grid first.
         Grid grid = new Grid();
 
@@ -158,6 +162,11 @@ public class App
 
                         System.out.println(overallCost);
                     }
+                    else
+                    {
+                        // We print the reasons we cannot build the structure.
+                        System.out.println(StructureCannotBuildResult.getResult());
+                    }
 
                     // At the end of the 'Build structure' process we reset the grid structure.
                     // This is because 'Build structure' is more of a plan, doesn't actually build. 
@@ -166,11 +175,147 @@ public class App
                 }
                 else if (optionChoice.equals("2"))
                 {
-                    // Build City
+                    if (buildCityApproach == 1)
+                    {
+                        // Build city.
+                        int numOfFloorsChosen;
+                        String foundationTypeChosen;
+                        String constructionMaterialChosen;
+
+                        int totalStructuresBuilt = 0;
+                        double totalCostOfGrid = 0.0;
+
+                        List<List<String>> displayBuiltStructures = new ArrayList<>();
+                        for (int r = 0; r < rowsAvailable; r++)
+                        {
+                            List<String> newRow = new ArrayList<>();
+                            for (int c = 0; c < columnsAvailable; c++)
+                            {
+                                newRow.add(" ");
+                            }
+                            displayBuiltStructures.add(newRow);
+                        }
+
+                        // We then ask for the relevant things in the structure to put in the grid.
+                        numOfFloorsChosen = getNumOfFloorsInput(input);
+                        foundationTypeChosen = getFoundationTypeInput(input);
+                        constructionMaterialChosen = getConstructionMaterialInput(input);
+
+                        // Try to build this on every grid square.
+                        for (int r = 0; r < rowsAvailable; r++)
+                        {
+                            for (int c = 0; c < columnsAvailable; c++)
+                            {
+                                GridSquare gridChosen = grid.getGridSquares().get(r).get(c);
+
+                                /* We are setting new structures across the grid based on user's inputs. */
+                                /* ---------------------------------------------------------------------------------- */
+                                IStructure existingStructure = gridChosen.getIStructure();
+                                IStructure modifiedStructure = existingStructure;
+
+                                // Set number of floors user enters into relevant grid.
+                                modifiedStructure = new NumOfFloors(modifiedStructure);
+                                ((NumOfFloors)modifiedStructure).setNumOfFloors(numOfFloorsChosen);
+
+                                // Set foundation type user enters into relevant grid.
+                                if (foundationTypeChosen.equals("slab"))
+                                {
+                                    modifiedStructure = new Slab(modifiedStructure);
+                                }
+                                else if (foundationTypeChosen.equals("stilts"))
+                                {
+                                    modifiedStructure = new Stilts(modifiedStructure);
+                                }
+
+                                // Set construction material user enters into relevant grid.
+                                if (constructionMaterialChosen.equals("wood"))
+                                {
+                                    modifiedStructure = new Wood(modifiedStructure);
+                                }
+                                else if (constructionMaterialChosen.equals("brick"))
+                                {
+                                    modifiedStructure = new Brick(modifiedStructure);
+                                }
+                                else if (constructionMaterialChosen.equals("stone"))
+                                {
+                                    modifiedStructure = new Stone(modifiedStructure);
+                                }
+                                else if (constructionMaterialChosen.equals("concrete"))
+                                {
+                                    modifiedStructure = new Concrete(modifiedStructure);
+                                }
+
+                                gridChosen.setIStructure(modifiedStructure);
+
+
+                                boolean gridCanBeBuilt = gridChosen.getIStructure().canBuild();
+
+                                // We only calculate the cost if the grid can be built.
+                                if (gridCanBeBuilt == true)
+                                {
+                                    // Cost so far without considering contamination or flood risk zone.
+                                    double overallCost = gridChosen.getIStructure().calculateCost();
+            
+                                    if (gridChosen.getIStructure().convertToString().contains("contamination"))
+                                    {
+                                        overallCost = overallCost * 1.50;
+                                    }
+                                    if (gridChosen.getIStructure().convertToString().contains("flood-risk"))
+                                    {
+                                        String splitLine[] = gridChosen.getIStructure().convertToString().split(" ");
+                                        for (int i = 0; i < splitLine.length; i++)
+                                        {
+                                            if (splitLine[i].contains("flood-risk"))
+                                            {
+                                                String[] splitLineFloodRisk = splitLine[i].split("=");
+                                                double floodRiskValue = Double.parseDouble(splitLineFloodRisk[1]);
+                                                overallCost = overallCost * (1.00 + (floodRiskValue / 50.00));
+                                            }
+                                        }
+                                    }
+
+                                    // This is the total number of structures able to be built.
+                                    totalStructuresBuilt = totalStructuresBuilt + 1;
+                                    // This is the total cost of the grid.
+                                    totalCostOfGrid = totalCostOfGrid + overallCost;
+                                    // This is for marking the location of the structure able to be built.
+                                    displayBuiltStructures.get(r).set(c, "X");
+                                }
+                                /* ---------------------------------------------------------------------------------- */
+                            }
+                        }
+
+                        System.out.println(totalStructuresBuilt);
+                        System.out.println(totalCostOfGrid);
+                        System.out.println(displayBuiltStructures.toString());
+
+                    }
                 }
                 else if (optionChoice.equals("3"))
                 {
                     // Change configuration
+                    while (true)
+                    {
+                        printBuildCityOptions();
+                        System.out.print("Please enter your choice (by typing one of the numbers): ");
+                        String buildCityOptionChoice = input.nextLine();
+
+                        if (buildCityOptionChoice.equals("1"))
+                        {
+                            buildCityApproach = 1;
+                            break;
+                        }
+                        else if (buildCityOptionChoice.equals("2"))
+                        {
+                            buildCityApproach = 2;
+                            break;
+                        }
+                        else if (buildCityOptionChoice.equals("3"))
+                        {
+                            buildCityApproach = 3;
+                            break;
+                        }
+                    }
                 }
                 else if (optionChoice.equals("4"))
                 {
@@ -293,6 +438,21 @@ public class App
         System.out.println("3. Configure");
         System.out.println("4. Quit");
         System.out.println("------------------------\n");
+    }
+    /* ----------------------------------------------------------------------------------- */
+
+
+    /* Method used to print the Build City options. */
+    /* ----------------------------------------------------------------------------------- */
+    private static void printBuildCityOptions()
+    {
+        System.out.println("\n---------------------------------");
+        System.out.println("          Configuration          ");
+        System.out.println("---------------------------------");
+        System.out.println("1. Uniform");
+        System.out.println("2. Random");
+        System.out.println("3. Central");
+        System.out.println("---------------------------------\n");
     }
     /* ----------------------------------------------------------------------------------- */
 
