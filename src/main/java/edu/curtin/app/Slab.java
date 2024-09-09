@@ -25,6 +25,7 @@ public class Slab extends StructureDecorator
         boolean valueToReturn = true;
         if (decoratedStructure.convertToString().contains("terrain=swampy"))
         {
+            System.out.println("Cannot build structure. Reason: Slab foundation cannot be in a swamp.");
             valueToReturn = false;
         }
         else

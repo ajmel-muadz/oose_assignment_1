@@ -37,6 +37,7 @@ public class NumOfFloors extends StructureDecorator
 
                     if (numOfFloors > heightLimitValue)
                     {
+                        System.out.println("Cannot build structure. Number of floors is higher than height limit.");
                         return (decoratedStructure.canBuild() && false);
                     }
                     else
@@ -51,6 +52,7 @@ public class NumOfFloors extends StructureDecorator
         {
             if (numOfFloors < 2)
             {
+                System.out.println("Cannot build structure. Reason: There is a flood risk so there should be at least 2 floors.");
                 return (decoratedStructure.canBuild() && false);
             }
             else

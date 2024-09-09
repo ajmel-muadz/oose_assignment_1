@@ -128,58 +128,19 @@ public class App
                     gridChosen.setIStructure(modifiedStructure);
                     /* ---------------------------------------------------------------------------------- */
 
-                    System.out.println(gridChosen.getIStructure().convertToString());
-                    System.out.println(gridChosen.getIStructure().canBuild());
+                    System.out.println("\n" + gridChosen.getIStructure().convertToString());
+                    System.out.println("");
+                    boolean gridCanBeBuilt = gridChosen.getIStructure().canBuild();
+
+                    // We only calculate the cost if the grid can be built.
+                    if (gridCanBeBuilt == true)
+                    {
+                        System.out.println(gridChosen.getIStructure().calculateCost());
+                    }
 
                     // At the end of the 'Build structure' process we reset the grid structure.
+                    // This is because 'Build structure' is more of a plan, doesn't actually build. 
                     gridChosen.setIStructure(existingStructure);
-
-                    // System.out.println(gridChosen.getIStructure().convertToString());
-                    // String gridChosenString = gridChosen.getIStructure().convertToString();
-                    // String[] gridChosenStringSplit = gridChosenString.split(" ");
-                    // System.out.println(Arrays.toString(gridChosenStringSplit));
-
-                    // if (Arrays.asList(gridChosenStringSplit).contains("terrain=swampy"))
-                    // {
-                    //     if (Arrays.asList(gridChosenStringSplit).contains("foundation-type=slab"))
-                    //     {
-                    //         boolean value = false;
-                    //     }
-                    //     if (Arrays.asList(gridChosenStringSplit).contains("construction-material=wood"))
-                    //     {
-                    //         boolean value = false;
-                    //     }
-                    // }
-
-                    // if (Arrays.asList(gridChosenStringSplit).contains("heritage=brick"))
-                    // {
-                    //     if (!Arrays.asList(gridChosenStringSplit).contains("construction-material=brick"))
-                    //     {
-                    //         boolean value = false;
-                    //     }
-                    // }
-                    // else if (Arrays.asList(gridChosenStringSplit).contains("heritage=stone"))
-                    // {
-                    //     if (!Arrays.asList(gridChosenStringSplit).contains("construction-material=stone"))
-                    //     {
-                    //         boolean value = false;
-                    //     }
-                    // }
-                    // else if (Arrays.asList(gridChosenStringSplit).contains("heritage=wood"))
-                    // {
-                    //     if (!Arrays.asList(gridChosenStringSplit).contains("construction-material=wood"))
-                    //     {
-                    //         boolean value = false;
-                    //     }
-                    // }
-
-                    // for (int i = 0; i < gridChosenStringSplit.length; i++)
-                    // {
-                    //     if (gridChosenStringSplit[i].contains("height-limit"))
-                    //     {
-                    //         //double heightLimitValue = gridChosen.getIStructure().
-                    //     }
-                    // }
 
                 }
                 else if (optionChoice.equals("2"))
@@ -409,7 +370,7 @@ public class App
         /* -------------------------------------------------------------------------------- */
         while (true)
         {
-            System.out.println("Choose your foundation type:");
+            System.out.println("\nChoose your foundation type:");
             System.out.println("1. Slab");
             System.out.println("2. Stilts");
             System.out.println("");
@@ -445,7 +406,7 @@ public class App
         /* -------------------------------------------------------------------------------- */
         while (true)
         {
-            System.out.println("Choose your construction material:");
+            System.out.println("\nChoose your construction material:");
             System.out.println("1. Wood");
             System.out.println("2. Stone");
             System.out.println("3. Brick");

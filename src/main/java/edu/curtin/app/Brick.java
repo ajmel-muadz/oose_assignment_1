@@ -12,7 +12,29 @@ public class Brick extends StructureDecorator
     @Override
     public double calculateCost()
     {
-        return decoratedStructure.calculateCost() + (0.0);
+        double cost = 0.0;
+
+        String[] splitLine = decoratedStructure.convertToString().split(" ");
+        for (int i = 0; i < splitLine.length; i++)
+        {
+            if (splitLine[i].contains("num-of-floors"))
+            {
+                String[] splitLineNumOfFloors = splitLine[i].split("=");
+                int numOfFloorsValue = Integer.parseInt(splitLineNumOfFloors[1]);
+                cost = (30000.00 * numOfFloorsValue);
+
+                if (decoratedStructure.convertToString().contains("terrain=swampy"))
+                {
+                    cost = cost + (20000.00 * numOfFloorsValue);
+                }
+                else if (decoratedStructure.convertToString().contains("terrain=rocky"))
+                {
+                    cost = cost + 50000;
+                }
+            }
+        }
+
+        return (decoratedStructure.calculateCost() + cost);
     }
     @Override
     public String convertToString()
@@ -31,6 +53,7 @@ public class Brick extends StructureDecorator
             }
             else
             {
+                System.out.println("Cannot build structure. Reason: Structure does not match heritage.");
                 valueToReturn = false;
             }
         }

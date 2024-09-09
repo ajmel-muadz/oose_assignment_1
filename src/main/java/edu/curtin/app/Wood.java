@@ -1,5 +1,7 @@
 package edu.curtin.app;
 
+import java.util.Arrays;
+
 public class Wood extends StructureDecorator
 {
     public String label = "wood";
@@ -12,7 +14,25 @@ public class Wood extends StructureDecorator
     @Override
     public double calculateCost()
     {
-        return decoratedStructure.calculateCost() + (0.0);
+        double cost = 0.0;
+
+        String[] splitLine = decoratedStructure.convertToString().split(" ");
+        for (int i = 0; i < splitLine.length; i++)
+        {
+            if (splitLine[i].contains("num-of-floors"))
+            {
+                String[] splitLineNumOfFloors = splitLine[i].split("=");
+                int numOfFloorsValue = Integer.parseInt(splitLineNumOfFloors[1]);
+                cost = (10000.00 * numOfFloorsValue);
+
+                if (decoratedStructure.convertToString().contains("terrain=rocky"))
+                {
+                    cost = cost + 50000;
+                }
+            }
+        }
+
+        return (decoratedStructure.calculateCost() + cost);
     }
     @Override
     public String convertToString()
@@ -25,6 +45,7 @@ public class Wood extends StructureDecorator
         boolean valueToReturn = true;
         if (decoratedStructure.convertToString().contains("terrain=swampy"))
         {
+            System.out.println("Cannot build structure. Reason: Wood structure cannot be in a swamp.");
             valueToReturn = false;
         }
         else
@@ -40,6 +61,7 @@ public class Wood extends StructureDecorator
             }
             else
             {
+                System.out.println("Cannot build structure. Reason: Structure does not match heritage.");
                 valueToReturn = false;
             }
         }
