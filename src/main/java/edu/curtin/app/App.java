@@ -128,6 +128,7 @@ public class App
                     gridChosen.setIStructure(modifiedStructure);
                     /* ---------------------------------------------------------------------------------- */
 
+                    System.out.println(gridChosen.getIStructure().convertToString());
                     System.out.println(gridChosen.getIStructure().canBuild());
 
                     // At the end of the 'Build structure' process we reset the grid structure.

@@ -37,13 +37,25 @@ public class NumOfFloors extends StructureDecorator
 
                     if (numOfFloors > heightLimitValue)
                     {
-                        valueToReturn = false;
+                        return (decoratedStructure.canBuild() && false);
                     }
                     else
                     {
                         valueToReturn = true;
                     }
                 }
+            }
+        }
+
+        if (decoratedStructure.convertToString().contains("flood-risk"))
+        {
+            if (numOfFloors < 2)
+            {
+                return (decoratedStructure.canBuild() && false);
+            }
+            else
+            {
+                valueToReturn = true;
             }
         }
         return (decoratedStructure.canBuild() && valueToReturn);
